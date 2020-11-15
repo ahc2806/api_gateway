@@ -4,31 +4,33 @@
 
     class GatewayBL {
         public $gatewayDTO;
-        private $url;
+        private $sakila;
+        private $auth;
 
         public function __construct() {
             $this->gatewayDTO = new GatewayDTO();
-            $this->url = 'http://localhost/Workspace/';
+            $this->sakila = 'https://api-sakila.herokuapp.com/';
+            $this->auth = 'https://api-authorization.herokuapp.com/';
         }
 
         public function actor($peticion) {
-            $sakila = 'sakila/actores/actor/';
+            $actor = 'actores/actor/';
 
             switch ($peticion) {
                 case 'GET': {
-                    GatewayLayout::Request('GET', $this->gatewayDTO, $this->url.$sakila.$this->gatewayDTO->id);
+                    GatewayLayout::Request('GET', $this->gatewayDTO, $this->sakila.$actor.$this->gatewayDTO->id);
                     break;
                 }
                 case 'POST': {
-                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->sakila.$actor);
                     break;
                 }
                 case 'PUT': {
-                    GatewayLayout::Request('PUT', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('PUT', $this->gatewayDTO, $this->sakila.$actor);
                     break;
                 }
                 case 'DELETE': {
-                    GatewayLayout::Request('DELETE', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('DELETE', $this->gatewayDTO, $this->sakila.$actor);
                     break;
                 }
                 default: {
@@ -40,23 +42,23 @@
         }
 
         public function categoria($peticion) {
-            $sakila = 'sakila/categorias/categoria/';
+            $cat = 'categorias/categoria/';
 
             switch ($peticion) {
                 case 'GET': {
-                    GatewayLayout::Request('GET', $this->gatewayDTO, $this->url.$sakila.$this->gatewayDTO->id);
+                    GatewayLayout::Request('GET', $this->gatewayDTO, $this->sakila.$cat.$this->gatewayDTO->id);
                     break;
                 }
                 case 'POST': {
-                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->sakila.$cat);
                     break;
                 }
                 case 'PUT': {
-                    GatewayLayout::Request('PUT', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('PUT', $this->gatewayDTO, $this->sakila.$cat);
                     break;
                 }
                 case 'DELETE': {
-                    GatewayLayout::Request('DELETE', $this->gatewayDTO, $this->url.$sakila);
+                    GatewayLayout::Request('DELETE', $this->gatewayDTO, $this->sakila.$cat);
                     break;
                 }
                 default: {
@@ -68,10 +70,10 @@
         }
 
         public function pelicula($peticion) {
-            $sakila = 'sakila/peliculas/pelicula/';
+            $film = 'peliculas/pelicula/';
 
             if($peticion == 'GET')
-                GatewayLayout::Request('GET', $this->gatewayDTO, $this->url.$sakila.$this->gatewayDTO->id);
+                GatewayLayout::Request('GET', $this->gatewayDTO, $this->sakila.$film.$this->gatewayDTO->id);
             else {
                 $this->gatewayDTO->response = array('REQUEST' => 'Error', 'TEXT' => 'Peticion Incorrecta');
                 echo json_encode($this->gatewayDTO->response, JSON_PRETTY_PRINT);
@@ -79,15 +81,15 @@
         }
     
         public function usuario($peticion) {
-            $usuario = 'usuarios/usuario/';
+            $users = 'usuario/';
 
             switch ($peticion) {
                 case 'GET': {
-                    return GatewayLayout::RequestToken('GET', $this->gatewayDTO, $this->url.$usuario);
+                    return GatewayLayout::RequestToken('GET', $this->gatewayDTO, $this->auth.$users);
                     break;
                 }
                 case 'POST': {
-                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->url.$usuario);
+                    GatewayLayout::Request('POST', $this->gatewayDTO, $this->auth.$users);
                     break;
                 }
                 default: {
